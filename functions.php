@@ -2,7 +2,7 @@
 /*
   * Plugin Name: modernSherbet Shortcode
   * Description: Create your WordPress shortcode for the theme modernSherbet.
-  * Version: 1.0.1
+  * Version: 1.0
   * Author: Donald Louch Productions
   * Author URI: https://donaldlouch.ca
 */
@@ -30,7 +30,7 @@
 		$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 			'https://github.com/DonaldLouch/modernSherbetShortcode',
 			__FILE__,
-			'modernsherbet'
+			'modernsherbet-shortcode'
 		);
 		$myUpdateChecker->setBranch('stable');
 
