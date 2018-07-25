@@ -1,7 +1,7 @@
 === modernSherbet Shortcode ===
 Contributors: Donald Louch Productions
 Requires at least: WordPress 1.0
-Version: 1.1
+Version: 1.1.2
 License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Tags: flexible-header, custom-header, custom-logo, featured-image-header, featured-images, full-width-template, post-formats, sticky-post, threaded-comments, blog, e-commerce, photography, portfolio
