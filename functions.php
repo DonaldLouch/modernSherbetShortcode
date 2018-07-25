@@ -9,30 +9,18 @@
 
 /*
 =====================================================================
-	Script Load
-		- Require's Files On Load
-			- Theme Options
-			- Cleanup
-=====================================================================
-*/
-
-	//Get Shortcodes!
-		//require get_template_directory_uri().'/shortcode.php';
-
-/*
-=====================================================================
 	Update Checker
 		- Plugin Update Checker By YahnisElsts
 =====================================================================
 */
 
-		require 'plugin-update-checker/plugin-update-checker.php';
-		$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-			'https://github.com/DonaldLouch/modernSherbetShortcode',
-			__FILE__,
-			'modernsherbet'
-		);
-		$myUpdateChecker->setBranch('stable');
+	require 'plugin-update-checker/plugin-update-checker.php';
+	$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'https://github.com/DonaldLouch/modernSherbetShortcode',
+		__FILE__,
+		'modernsherbet-shortcode'
+	);
+	$myUpdateChecker->setBranch('stable');
 
 /*
 =====================================================================
