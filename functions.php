@@ -2,7 +2,7 @@
 /*
   * Plugin Name: modernSherbet Shortcode
   * Description: Create your WordPress shortcode for the theme modernSherbet.
-  * Version: 1.1.2
+  * Version: 1.1.2/1
   * Author: Donald Louch Productions
   * Author URI: https://donaldlouch.ca
 */
@@ -14,17 +14,18 @@
 =====================================================================
 */
 
-	require 'plugin-update-checker/plugin-update-checker.php';
-	$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-		'https://github.com/DonaldLouch/modernSherbetShortcode',
-		__FILE__,
-		'modernsherbet-shortcode'
-	);
-	$myUpdateChecker->setBranch('stable');
+		require 'plugin-update-checker/plugin-update-checker.php';
+		$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+			'https://github.com/DonaldLouch/modernSherbetShortcode',
+			__FILE__,
+			'modernsherbet-shortcode'
+		);
+		$myUpdateChecker->setBranch('stable');
 
 /*
 =====================================================================
   Shortcode: Toggle
+		- Introduced in version 1.0
     - Calls the script
     - Creates the shortcode
     - Usage:
@@ -54,37 +55,8 @@
 
 /*
 =====================================================================
-  Shortcode: Button(s)
-    - Creates the shortcode
-    - Usage:
-        [button link="https://donaldlouch.ca" class="button | flatButton"]Best Site Ever![/button]
-=====================================================================
-*/
-
-  function buttonShortcode($atts, $content = null) {
-    extract(shortcode_atts(array('link' => '#', 'class' => 'button'), $atts));
-    return '<a class="'.$class.'" href="'.$link.'">' . do_shortcode($content) . '</a>';
-  }
-  add_shortcode('button', 'buttonShortcode');
-
-/*
-=====================================================================
-  Shortcode: Div No Break
-    - Creates the shortcode
-    - Usage:
-        [nobreak]CONTENT[/nobreak]
-=====================================================================
-*/
-
-  function divNoBreakShortcode($atts, $content = null) {
-    extract(shortcode_atts(array(), $atts));
-    return '<div class="divNoBreak">' . do_shortcode($content) . '</div>';
-  }
-  add_shortcode('nobreak', 'divNoBreakShortcode');
-
-/*
-=====================================================================
   Shortcode: Tabs
+		- Introduced in version 1.0
     - Calls the script
     - Creates the shortcode
     - Usage:
@@ -151,8 +123,42 @@
 
 /*
 =====================================================================
-  Shortcode: Columns
-    - Creates the shortcode
+	Shortcode: Button(s)
+		- Introduced in version 1.0
+		- Creates the shortcode
+		- Usage:
+				[button link="https://donaldlouch.ca" class="button | flatButton"]Best Site Ever![/button]
+=====================================================================
+*/
+
+	function buttonShortcode($atts, $content = null) {
+		extract(shortcode_atts(array('link' => '#', 'class' => 'button'), $atts));
+		return '<a class="'.$class.'" href="'.$link.'">' . do_shortcode($content) . '</a>';
+	}
+	add_shortcode('button', 'buttonShortcode');
+
+
+	/*
+	=====================================================================
+	  Shortcode: Div No Break
+			- Introduced in version 1.1
+	    - Creates the shortcode
+	    - Usage:
+	        [nobreak]CONTENT[/nobreak]
+	=====================================================================
+	*/
+
+	  function divNoBreakShortcode($atts, $content = null) {
+	    extract(shortcode_atts(array(), $atts));
+	    return '<div class="divNoBreak">' . do_shortcode($content) . '</div>';
+	  }
+	  add_shortcode('nobreak', 'divNoBreakShortcode');
+
+/*
+=====================================================================
+  Shortcode: Columns (Version 1.0.1b1)
+    - Introduced in version 1.1.2
+		- Creates the shortcode
     - Usage:
         [columns number="2|3|4|5|1/3|3/1|1/2/1" id=""]
         [column singleID="column1"]Your content goes here 1...[/column]
@@ -165,11 +171,11 @@
   function columnShortcode( $atts, $content = null ) {
     extract( shortcode_atts(
     array(
-      'singleID' => ''
+      'name' => ''
     ),
     $atts) );
     global $single_column_array;
-    $single_column_array[] = array( 'singleID' => $singleID, 'content' => do_shortcode($content) );
+    $single_column_array[] = array( 'name' => $name, 'content' => do_shortcode($content) );
   }
   add_shortcode('column', 'columnShortcode');
 
@@ -195,7 +201,7 @@
     ;
 
     foreach ( $single_column_array as $column => $column_attr_array ) {
-      $columns_content .= '<div id="'. $column_attr_array["singleID"] .'" class="column">'.$column_attr_array['content'].'</div> ';
+      $columns_content .= '<div id="'. $column_attr_array["name"] .'" class="column">'.$column_attr_array['content'].'</div> ';
     }
 
     $columns_end .= '</div>';
@@ -204,4 +210,30 @@
     return $columns_output;
   }
   add_shortcode('columns', 'columnsShortcode');
+
+	/*
+	=====================================================================
+	  Shortcode: Video Title
+			- Introduced in version ?.?.?
+	    - Creates the shortcode
+	    - Usage:
+					[video-title vidlink="LINK TO VIDEO" title="TITLE" bylink="PROFILE LINK" by="PERSONS NAME" onlink="https://youtube.com (DEFULT)" on="YouTube (DEFULT)"]Additional info (goes after the "by" section) such as "Featuring"[/video-title]
+	=====================================================================
+	*/
+
+	//Shortcode: Video Title
+	  function videoTitleShortcode( $atts, $content = null ) {
+	    extract( shortcode_atts(
+	    array(
+				'vidlink' => '',
+			  'title' => '',
+				'bylink' => '',
+				'by' => '',
+				'onlink' => 'https://youtube.com',
+				'on' => 'YouTube'
+	    ),
+	    $atts ) );
+	    return '<p class="videoTitle">"<strong><a href="'.$vidlink.'">'.$title.'</a></strong>" by <strong><a href="'.$bylink.'">'.$by.'</a></strong> ' . do_shortcode($content). ' on <strong><a href="'.$onlink.'">'.$on.'</a></strong></p>';
+	  }
+	  add_shortcode('video-title', 'videoTitleShortcode');
 ?>
