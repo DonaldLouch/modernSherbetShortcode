@@ -157,7 +157,7 @@
 /*
 =====================================================================
   Shortcode: Columns (Version 1.0.1b1)
-    - Introduced in version 1.1.2
+    - Introduced in version 1.1.2 | TO BE Updated in version 1.2
 		- Creates the shortcode
     - Usage:
         [columns number="2|3|4|5|1/3|3/1|1/2/1" id=""]
@@ -210,30 +210,4 @@
     return $columns_output;
   }
   add_shortcode('columns', 'columnsShortcode');
-
-	/*
-	=====================================================================
-	  Shortcode: Video Title
-			- Introduced in version ?.?.?
-	    - Creates the shortcode
-	    - Usage:
-					[video-title vidlink="LINK TO VIDEO" title="TITLE" bylink="PROFILE LINK" by="PERSONS NAME" onlink="https://youtube.com (DEFULT)" on="YouTube (DEFULT)"]Additional info (goes after the "by" section) such as "Featuring"[/video-title]
-	=====================================================================
-	*/
-
-	//Shortcode: Video Title
-	  function videoTitleShortcode( $atts, $content = null ) {
-	    extract( shortcode_atts(
-	    array(
-				'vidlink' => '',
-			  'title' => '',
-				'bylink' => '',
-				'by' => '',
-				'onlink' => 'https://youtube.com',
-				'on' => 'YouTube'
-	    ),
-	    $atts ) );
-	    return '<p class="videoTitle">"<strong><a href="'.$vidlink.'">'.$title.'</a></strong>" by <strong><a href="'.$bylink.'">'.$by.'</a></strong> ' . do_shortcode($content). ' on <strong><a href="'.$onlink.'">'.$on.'</a></strong></p>';
-	  }
-	  add_shortcode('video-title', 'videoTitleShortcode');
 ?>
