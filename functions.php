@@ -2,7 +2,7 @@
 /*
   * Plugin Name: modernSherbet Shortcode
   * Description: Create your WordPress shortcode for the theme modernSherbet.
-  * Version: 1.1.2/1
+  * Version: 1.1.2
   * Author: Donald Louch Productions
   * Author URI: https://donaldlouch.ca
 */
@@ -14,13 +14,13 @@
 =====================================================================
 */
 
-		require 'plugin-update-checker/plugin-update-checker.php';
-		$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-			'https://github.com/DonaldLouch/modernSherbetShortcode',
-			__FILE__,
-			'modernsherbet-shortcode'
-		);
-		$myUpdateChecker->setBranch('stable');
+	require 'plugin-update-checker/plugin-update-checker.php';
+	$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'https://github.com/DonaldLouch/modernSherbetShortcode',
+		__FILE__,
+		'modernsherbet-shortcode'
+	);
+	$myUpdateChecker->setBranch('stable');
 
 /*
 =====================================================================
@@ -138,15 +138,15 @@
 	add_shortcode('button', 'buttonShortcode');
 
 
-	/*
-	=====================================================================
-	  Shortcode: Div No Break
-			- Introduced in version 1.1
-	    - Creates the shortcode
-	    - Usage:
-	        [nobreak]CONTENT[/nobreak]
-	=====================================================================
-	*/
+/*
+=====================================================================
+  Shortcode: Div No Break
+		- Introduced in version 1.1
+    - Creates the shortcode
+    - Usage:
+        [nobreak]CONTENT[/nobreak]
+=====================================================================
+*/
 
 	  function divNoBreakShortcode($atts, $content = null) {
 	    extract(shortcode_atts(array(), $atts));
@@ -156,8 +156,8 @@
 
 /*
 =====================================================================
-  Shortcode: Columns (Version 1.0.1b1)
-    - Introduced in version 1.1.2 | TO BE Updated in version 1.2
+  Shortcode: Columns (Version 1.0.1)
+    - Introduced in version 1.1.2 | Updated version 1.2
 		- Creates the shortcode
     - Usage:
         [columns number="2|3|4|5|1/3|3/1|1/2/1" id=""]
@@ -194,7 +194,7 @@
     $columns_end = '';
     $columns_output = '';
 
-    $columns_start .= '<div class="columns '.$number.'" id="'.$id.'">';
+    $columns_start .= '<div class="divNoBreak"><div class="columns '.$number.'" id="'.$id.'">';
 
     do_shortcode($content);
 
@@ -204,10 +204,57 @@
       $columns_content .= '<div id="'. $column_attr_array["name"] .'" class="column">'.$column_attr_array['content'].'</div> ';
     }
 
-    $columns_end .= '</div>';
+    $columns_end .= '</div></div>';
     $columns_output = $columns_start . $columns_content .  $columns_end;
 
     return $columns_output;
   }
   add_shortcode('columns', 'columnsShortcode');
+
+/*
+=====================================================================
+  Shortcode: Video Title
+		- Introduced in version 1.2
+    - Creates the shortcode
+    - Usage:
+				[videoTitle vidlink="LINK TO VIDEO" title="TITLE" bylink="PROFILE LINK" by="PERSONS NAME" onlink="https://youtube.com (DEFULT)" on="YouTube (DEFULT)"]Additional info (goes after the "by" section) such as "Featuring"[/videoTitle]
+=====================================================================
+*/
+
+  function videoTitleShortcode( $atts, $content = null ) {
+    extract( shortcode_atts(
+    array(
+			'vidlink' => '',
+		  'title' => '',
+			'bylink' => '',
+			'by' => '',
+			'onlink' => 'https://youtube.com', //Defult
+			'on' => 'YouTube' //Defult
+    ),
+    $atts ) );
+    return '<p class="videoTitle">"<strong><a href="'.$vidlink.'">'.$title.'</a></strong>" by <strong><a href="'.$bylink.'">'.$by.'</a></strong> ' . do_shortcode($content). ' on <strong><a href="'.$onlink.'">'.$on.'</a></strong></p>';
+  }
+  add_shortcode('videoTitle', 'videoTitleShortcode');
+
+/*
+=====================================================================
+	Shortcode: Content Embed
+		- Introduced in version 1.2
+		- Creates the shortcode
+		- Usage:
+		[contentEmbed id="ID"]
+			[embed]DailyMotion/SoundCloud/VideoPress/Vimeo/Vine/WordPress.tv/YouTube Link[/embed] | iframe code | or other embedable media code
+		[/contentEmbed]
+=====================================================================
+*/
+
+	function contentEmbedShortcode( $atts, $content = null ) {
+		extract( shortcode_atts(
+		array(
+			'id' => '',
+		),
+		$atts ) );
+		return '<div class="contentEmbedContainer" id="'.$id.'">' . do_shortcode($content). '</div>';
+	}
+	add_shortcode('contentEmbed', 'contentEmbedShortcode');
 ?>
