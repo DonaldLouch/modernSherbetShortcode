@@ -2,7 +2,7 @@
 /*
   * Plugin Name: modernSherbet Shortcode
   * Description: Create your WordPress shortcode for the theme modernSherbet.
-  * Version: 1.1.2
+  * Version: 1.2
   * Author: Donald Louch Productions
   * Author URI: https://donaldlouch.ca
 */
